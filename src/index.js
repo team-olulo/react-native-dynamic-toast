@@ -24,14 +24,14 @@ export default class Toast extends Component {
       childComponent: null,
       containerStyle: this.props.containerStyle,
     };
-  
+
     this.animatedValue = new Animated.Value(0);
   }
 
   componentWillUnmount() {
     clearTimeout(this.closeTimer);
   }
-  
+
   show(options = {}) {
     const {
       position,
@@ -48,20 +48,20 @@ export default class Toast extends Component {
 
     let childComponentProps;
 
-    const componentProps = React.isValidElement(component) ? component : 
+    const componentProps = React.isValidElement(component) ? component :
       (React.isValidElement(this.props.children)) ? this.props.children : null;
 
-    childComponentProps = (typeof message === 'string' || componentProps === null) ? 
+    childComponentProps = (typeof message === 'string' || componentProps === null) ?
       this.renderMessage(message, messageContainerStyle, messageTextStyle) : componentProps;
 
     const positionX = (position && typeof position.x === 'number') ? position.x : this.props.position.x;
     const positionY = (position && typeof position.y === 'number') ? position.y : this.props.position.y;
     const width = (size && typeof size.width === 'number') ? size.width : this.props.size.width;
     const height = (size && typeof size.height === 'number') ? size.height : this.props.size.height;
-    const containerStyleProps = (containerStyle && typeof containerStyle === 'object') ? 
+    const containerStyleProps = (containerStyle && typeof containerStyle === 'object') ?
       containerStyle : this.props.containerStyle;
 
-    const fadeInDurationProps = (typeof fadeInDuration === 'number') ? 
+    const fadeInDurationProps = (typeof fadeInDuration === 'number') ?
       fadeInDuration : this.props.fadeInDuration;
     const visibleDurationProps = (typeof visibleDuration === 'number') ?
       visibleDuration : this.props.visibleDuration;
@@ -79,6 +79,7 @@ export default class Toast extends Component {
         {
           toValue: 1,
           duration: fadeInDurationProps,
+          useNativeDriver: true,
         }
       ).start(() => {
         clearTimeout(this.closeTimer);
@@ -88,13 +89,14 @@ export default class Toast extends Component {
       });
     });
   }
-  
+
   hide(fadeOutDuration = this.props.fadeOutDuration) {
     Animated.timing(
       this.animatedValue,
       {
         toValue: 0,
         duration: fadeOutDuration,
+        useNativeDriver: true,
       }
     ).start();
   }
@@ -112,14 +114,14 @@ export default class Toast extends Component {
       </View>
     );
   }
-  
+
   render() {
-    const {      
+    const {
       deviceWidth,
       deviceHeight,
     } = this.props;
     const {
-      positionX, 
+      positionX,
       positionY,
       width,
       height,
@@ -135,7 +137,7 @@ export default class Toast extends Component {
       position: 'absolute',
       top: top,
       left: left,
-      right: right,      
+      right: right,
     };
     const toastStyle = [positionStyle, containerStyle];
 
@@ -194,7 +196,7 @@ Toast.defaultProps = {
     color: '#fff',
     textAlign: 'center'
   },
-  message: 'hello!',  
+  message: 'hello!',
   deviceWidth: DEVICE_WIDTH,
   deviceHeight: DEVICE_HEIGHT,
   fadeInDuration: 500,
