@@ -176,8 +176,8 @@ Toast.defaultProps = {
     y: DIVIDER_LINE / 2,
   },
   size: {
-    width: 100,
-    height: 30,
+    width: 0,
+    height: 0,
   },
   containerStyle: {
     justifyContent:  'center',
