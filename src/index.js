@@ -98,7 +98,9 @@ export default class Toast extends Component {
         duration: fadeOutDuration,
         useNativeDriver: true,
       }
-    ).start();
+    ).start(() => {
+      this.setState({width: 0, height: 0})
+    });
   }
 
   renderMessage(

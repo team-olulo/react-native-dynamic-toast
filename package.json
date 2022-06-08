@@ -1,6 +1,6 @@
 {
   "name": "react-native-dynamic-toast",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React native dynamic toast for supporting iOS and Android.",
   "main": "src/index",
   "url": "https://github.com/7772/react-native-dynamic-toast",
